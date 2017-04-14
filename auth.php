@@ -249,19 +249,19 @@ class auth_plugin_authplaincas extends DokuWiki_Auth_Plugin {
   }
 
   public function logIn() {
-    global $QUERY;
-    $login_url = DOKU_URL . 'doku.php?id=' . $QUERY;
+    global $ID;
+    $login_url = wl($ID,'',true);
     phpCAS::setFixedServiceURL($login_url);
     phpCAS::forceAuthentication();
   }
     
   public function logOff() {
-    global $QUERY;
+    global $ID;
     
     if($this->_getOption('caslogout')) { // dokuwiki + cas logout
       @session_start();
       session_destroy();
-      $logout_url = DOKU_URL . 'doku.php?id=' . $QUERY;
+      $logout_url = wl($ID,'',true);
       phpCAS::logoutWithRedirectService($logout_url);
     }
     else { // dokuwiki logout only
