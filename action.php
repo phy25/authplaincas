@@ -52,7 +52,10 @@ class action_plugin_authplaincas extends DokuWiki_Action_Plugin {
     global $lang;
     global $ID;
 
-    if($conf['authtype'] == 'authplaincas') {
+    if(
+        $conf['authtype'] == 'authplaincas' ||
+        ($conf['authtype'] == 'authsplit' && $conf['plugin']['authsplit']['primary_authplugin'] == 'authplaincas')
+      ) {
 
       if ($this->getConf('logourl') != '') {
         $caslogo = '<img src="'.$this->getConf('logourl').'" alt="" style="vertical-align: middle;" /> ';
